@@ -2,37 +2,41 @@ const routes = [{
         path: '/',
         component: () =>
             import ('layouts/MainLayout.vue'),
-        children: [
-            { path: '', component: () =>
-                    import ('pages/Index.vue') }
-        ]
+        children: [{
+            path: '',
+            component: () =>
+                import ('pages/Index.vue')
+        }]
     },
     {
         path: '/about',
         component: () =>
             import ('layouts/MainLayout.vue'),
-        children: [
-            { path: '', component: () =>
-                    import ('pages/About.vue') }
-        ]
+        children: [{
+            path: '',
+            component: () =>
+                import ('pages/About.vue')
+        }]
     },
     {
-        path: '/history',
+        path: '/petsearch',
         component: () =>
             import ('layouts/MainLayout.vue'),
-        children: [
-            { path: '', component: () =>
-                    import ('pages/History.vue') }
-        ]
+        children: [{
+            path: '',
+            component: () =>
+                import ('pages/Petsearch.vue')
+        }]
     },
     {
         path: '/auth',
         component: () =>
             import ('layouts/MainLayout.vue'),
-        children: [
-            { path: '', component: () =>
-                    import ('pages/Auth.vue') }
-        ]
+        children: [{
+            path: '',
+            component: () =>
+                import ('pages/Auth.vue')
+        }]
     },
     // Always leave this as last one,
     // but you can also remove it
