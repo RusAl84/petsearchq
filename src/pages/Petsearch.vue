@@ -11,16 +11,39 @@
         :hint-content="item.content"
 
       ></ymap-marker>
-
     </yandex-map>
+    <q-card-actions style="display: flex; flex-direction: column; justify-content: space-between">
+      <div>
+        <q-input
+          style="width: 40%; min-width: 800px"
+          outlined
+          dense
+          v-model="descr"
+          label="Текст сообщения"
+        /></div>
+        <div>
+         <br> Коррдинаты: {{ycoords}} <br></div>
+         <div> <q-uploader
+          url="http://localhost:5000/upload"
+          label="Загрузите фото"
+          color="purple"
+          square
+          flat
+          bordered
+          single
+          accept=".jpg, image/*"
+
+          style="min-width: 400px; max-width: 400px"
+        /> </div>
+              <div>
       <q-btn
-          depressed
+
           color="primary"
           @click="onSendClick"
         >
-          Оправить свои координаты
-        </q-btn> {{location}} {{ycoords}}
-
+          Оправить данные
+        </q-btn></div>
+      </q-card-actions>
     </q-card-section>
   </q-card>
 </q-page>
@@ -37,7 +60,7 @@ export default {
   components: { yandexMap, ymapMarker },
   setup() {
         const $store = useStore()
-    const userName = computed({
+      const userName = computed({
       get: () => $store.state.mes.userName,
       set: val => {
         $store.commit('mes/updateUserNameState', val)
@@ -68,13 +91,15 @@ export default {
       }
     })
     let location=[]
+    let descr=""
+    let coords=ref([
+        {coord:[55.726822, 37.557682], content: "<p>Найдена собака! Обращаться по телефону +79263772622</p> <p></p><img src=\"1.jpg\" ></p>" },
+        {coord:[55.760178, 37.618575], content: "<p>Найдена собака! Обращаться по телефону +79263772622</p> <p></p><img src=\"2.jpg\" ></p>" },
+        {coord:[55.819721, 37.611704], content: "<p>Найдена собака! Обращаться по телефону +79263772622</p> <p></p><img src=\"3.jpg\" ></p>" },
+      ])
     return {
       coord: [55.75, 37.61],
-      coords:  [
-        {coord:[55.726822, 37.557682], content: "aaa" },
-        {coord:[55.760178, 37.618575], content: "bbb" },
-        {coord:[55.819721, 37.611704], content: "ccc" },
-      ],
+      coords,
       ycoords: ref([55.75, 37.61]),
       location,
       settings : {
@@ -83,7 +108,7 @@ export default {
         coordorder: 'latlong',
         enterprise: false,
         version: '2.1'
-    },$store, userName, messages, intervalCtx, lastMsgID,  messageText,
+    },$store, userName, messages, intervalCtx, lastMsgID,  messageText, descr,
     }
   },
   //   mounted() {
@@ -113,32 +138,17 @@ export default {
   methods: {
     // Реакция на кнопку отправки
     onSendClick() {
-    // if(!("geolocation" in navigator)) {
-    //   this.errorStr = 'Geolocation is not available.';
-    //   return;
-    // }
-
-    // this.gettingLocation = true;
-    // get position
-    navigator.geolocation.getCurrentPosition(pos => {
-      this.gettingLocation = false;
-      this.location = pos;
-    },)
-    // setTimeout(() => {
-    //     console.log("Weit4000!");
-    //   }, 4000);
-    this.ycoords=[this.location["coords"]["latitude"],this.location["coords"]["longitude"]]
-    let e=0.01
-
-    // this.$forceUpdate();
-    // err => {
-    //   this.gettingLocation = false;
-    //   this.errorStr = err.message;
-    // })
+    let item ={}
+    item ={
+      coord:  [ 55.77226178323436, 37.75848709106444 ],
+      content: "<p>"+ this.descr+"</p> <p></p><img src=\"4.jpg\" ></p>"
+    }
+    this.coords.push(item)
+    this.$forceUpdate()
+    console.log(this.coords)
     },
     onClick(e) {
       this.ycoords = e.get('coords');
-
     },
 },
 }
