@@ -22,8 +22,8 @@
           label="Текст сообщения"
         /></div>
         <div>
-         <br> Коррдинаты: {{ycoords}} <br></div>
-         <div> <q-uploader
+        <br> Коррдинаты: {{ycoords}} <br></div>
+        <div> <q-uploader
           url="http://localhost:5000/upload"
           label="Загрузите фото"
           color="purple"
